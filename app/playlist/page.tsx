@@ -1,8 +1,11 @@
 import React from 'react';
 
-const page = (props) => {
-  console.log(props);
-  return <div>Play List {props.searchParams.list}</div>;
+type PageProps = {
+  searchParams: { list: string };
+};
+
+const page = ({ searchParams }: PageProps) => {
+  return <div>Play List {searchParams.list}</div>;
 };
 
 export default page;
