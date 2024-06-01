@@ -1,11 +1,13 @@
 'use client';
 
+import { dummyPlaylistArray } from '@/lib/dummyData';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
-import { FiCompass, FiMusic } from 'react-icons/fi';
+import { FiCompass, FiMusic, FiPlus } from 'react-icons/fi';
 import { GoHome } from 'react-icons/go';
+import PlayListNav from './PlayListNav';
 
 const Navigator = () => {
   const pathname = usePathname();
@@ -49,6 +51,25 @@ const Navigator = () => {
             </div>
           </Link>
         ))}
+      </section>
+
+      <section className='px-6'>
+        <div className='w-full h-[1px] bg-neutral-700'></div>
+      </section>
+
+      <section className='px-6'>
+        <div className='flex flex-row items-center bg-neutral-800 my-6 rounded-3xl p-2 font-[200] justify-center gap-2 hover:bg-neutral-700 cursor-pointer'>
+          <FiPlus size={24} />
+          <span>새 재생목록</span>
+        </div>
+      </section>
+
+      <section>
+        <ul className='flex flex-col'>
+          {dummyPlaylistArray.map((playlist) => (
+            <PlayListNav playlist={playlist} key={playlist.id} />
+          ))}
+        </ul>
       </section>
     </div>
   );
