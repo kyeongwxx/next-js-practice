@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import UserIcon from './UserIcon';
 import PagePadding from './PagePadding';
 import { FaChromecast } from 'react-icons/fa';
@@ -9,6 +9,7 @@ import { FiSearch } from 'react-icons/fi';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import Logo from './elements/Logo';
 import Navigator from './elements/Navigator';
+import { cn } from '@/lib/utils';
 
 type HeaderDrawerProps = {
   children: ReactNode;
@@ -37,8 +38,25 @@ type HeaderProps = {
 };
 
 const Header = ({ children }: HeaderProps) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollValue = headerRef?.current?.scrollTop;
+      setIsScrolled(scrollValue !== 0);
+    };
+
+    const currentHeader = headerRef.current;
+    currentHeader?.addEventListener('scroll', handleScroll);
+
+    return () => {
+      currentHeader?.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <header className='relative overflow-y-auto w-full h-full'>
+    <header ref={headerRef} className='relative overflow-y-auto w-full h-full'>
       <section className='absolute w-full top-0'>
         <div className='relative w-full h-[400px]'>
           <Image
@@ -52,10 +70,17 @@ const Header = ({ children }: HeaderProps) => {
         </div>
       </section>
 
-      <section className='sticky'>
+      <section
+        className={cn('sticky top-0 left-0 z-10', isScrolled && 'bg-black')}
+      >
         <PagePadding>
           <div className='h-[64px] flex flex-row justify-between items-center'>
-            <article className='hidden lg:flex flex-row items-center h-[42px] min-w-[480px] bg-[rgba(0,0,0,0.5)] rounded-2xl px-[16px] gap-[16px]'>
+            <article
+              className={cn(
+                'hidden lg:flex flex-row items-center h-[42px] min-w-[480px] bg-[rgba(0,0,0,0.5)] rounded-2xl px-[16px] gap-[16px]',
+                isScrolled && 'border border-neutral-500'
+              )}
+            >
               <div>
                 <FiSearch size={24} />
               </div>
