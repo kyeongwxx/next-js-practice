@@ -1,9 +1,36 @@
+'use client';
+
 import Image from 'next/image';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import UserIcon from './UserIcon';
 import PagePadding from './PagePadding';
 import { FaChromecast } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
+import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import Logo from './elements/Logo';
+import Navigator from './elements/Navigator';
+
+type HeaderDrawerProps = {
+  children: ReactNode;
+};
+
+const HeaderDrawer = ({ children }: HeaderDrawerProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <Drawer direction='left' open={isOpen} onOpenChange={setIsOpen}>
+      <DrawerTrigger>{children}</DrawerTrigger>
+      <DrawerContent className='w-[240px] h-full'>
+        <div className='py-3'>
+          <div className='px-3'>
+            <Logo isInDrawer onClickClose={() => setIsOpen(false)} />
+          </div>
+          <Navigator />
+        </div>
+      </DrawerContent>
+    </Drawer>
+  );
+};
 
 type HeaderProps = {
   children: ReactNode;
@@ -28,7 +55,7 @@ const Header = ({ children }: HeaderProps) => {
       <section className='sticky'>
         <PagePadding>
           <div className='h-[64px] flex flex-row justify-between items-center'>
-            <article className='flex flex-row items-center h-[42px] min-w-[480px] bg-[rgba(0,0,0,0.5)] rounded-2xl px-[16px] gap-[16px]'>
+            <article className='hidden lg:flex flex-row items-center h-[42px] min-w-[480px] bg-[rgba(0,0,0,0.5)] rounded-2xl px-[16px] gap-[16px]'>
               <div>
                 <FiSearch size={24} />
               </div>
@@ -38,6 +65,12 @@ const Header = ({ children }: HeaderProps) => {
                 type='text'
               />
             </article>
+
+            <HeaderDrawer>
+              <article className='lg:hidden'>
+                <Logo />
+              </article>
+            </HeaderDrawer>
 
             <article className='flex flex-row gap-6 items-center'>
               <FaChromecast size={26} />
