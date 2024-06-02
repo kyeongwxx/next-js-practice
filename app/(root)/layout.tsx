@@ -7,7 +7,7 @@ type LayoutProps = {
 
 const layout = ({ children }: LayoutProps) => {
   return (
-    <div>
+    <div className='w-full h-full'>
       <Header>{children}</Header>
     </div>
   );
