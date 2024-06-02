@@ -1,5 +1,9 @@
 import Image from 'next/image';
 import { ReactNode } from 'react';
+import UserIcon from './UserIcon';
+import PagePadding from './PagePadding';
+import { FaChromecast } from 'react-icons/fa';
+import { FiSearch } from 'react-icons/fi';
 
 type HeaderProps = {
   children: ReactNode;
@@ -21,7 +25,29 @@ const Header = ({ children }: HeaderProps) => {
         </div>
       </section>
 
-      <section className='absolute'>{children}</section>
+      <section className='sticky'>
+        <PagePadding>
+          <div className='h-[64px] flex flex-row justify-between items-center'>
+            <article className='flex flex-row items-center h-[42px] min-w-[480px] bg-[rgba(0,0,0,0.5)] rounded-2xl px-[16px] gap-[16px]'>
+              <div>
+                <FiSearch size={24} />
+              </div>
+              <input
+                className='h-full w-full bg-transparent'
+                placeholder='노래, 앨범, 아티스트, 팟캐스트 검색'
+                type='text'
+              />
+            </article>
+
+            <article className='flex flex-row gap-6 items-center'>
+              <FaChromecast size={26} />
+              <UserIcon />
+            </article>
+          </div>
+        </PagePadding>
+      </section>
+
+      <section className='relative'>{children}</section>
     </header>
   );
 };
