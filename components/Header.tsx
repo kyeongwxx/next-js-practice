@@ -10,6 +10,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import Logo from './elements/Logo';
 import Navigator from './elements/Navigator';
 import { cn } from '@/lib/utils';
+import useUIState from '@/hooks/useUIState';
 
 type HeaderDrawerProps = {
   children: ReactNode;
@@ -38,6 +39,8 @@ type HeaderProps = {
 };
 
 const Header = ({ children }: HeaderProps) => {
+  const { headerImageSrc } = useUIState();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
 
@@ -61,7 +64,10 @@ const Header = ({ children }: HeaderProps) => {
         <div className='relative w-full h-[400px]'>
           <Image
             className='object-cover'
-            src='https://images.unsplash.com/photo-1487956382158-bb926046304a'
+            src={
+              headerImageSrc ||
+              'https://images.unsplash.com/photo-1487956382158-bb926046304a'
+            }
             fill
             alt='image-unsplash'
           />
