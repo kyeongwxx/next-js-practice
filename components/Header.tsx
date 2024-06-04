@@ -66,7 +66,7 @@ const Header = ({ children }: HeaderProps) => {
             className='object-cover'
             src={
               headerImageSrc ||
-              'https://images.unsplash.com/photo-1487956382158-bb926046304a'
+              'https://images.unsplash.com/photo-1707833558984-3293e794031c'
             }
             fill
             alt='image-unsplash'
