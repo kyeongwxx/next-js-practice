@@ -19,7 +19,7 @@ const page = () => {
           subTitle='도도'
           Thumbnail={
             <div className='w-[56px] h-[56px]'>
-              <UserIcon />
+              <UserIcon size='lg' />
             </div>
           }
           playlistArray={[...dummyPlaylistArray1]}
