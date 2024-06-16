@@ -8,6 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import PlayListCard from './PlayListCard';
 
 type PlayListCarouselProps = {
   title: string;
@@ -45,9 +46,9 @@ const PlayListCarousel: React.FC<PlayListCarouselProps> = ({
           </div>
         </div>
         <CarouselContent>
-          {Array.from({ length: 5 }).map((_, index) => (
+          {playlistArray?.map((playlist, index) => (
             <CarouselItem key={index}>
-              <div className='p-1'>Card</div>
+              <PlayListCard playlist={playlist} />
             </CarouselItem>
           ))}
         </CarouselContent>
