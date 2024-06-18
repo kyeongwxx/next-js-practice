@@ -14,13 +14,13 @@ type PlayListCardProps = {
 
 const PlayListCard = ({ playlist }: PlayListCardProps) => {
   const { push } = useRouter();
-  const { id, owner, playlistName, songList } = playlist;
+  const { id, owner = '', playlistName = '', songList = [] } = playlist ?? {};
 
   const songListLength = songList?.length;
-  const imgSrc = getRandomElementFromArray(songList).imageSrc;
+  const imgSrc = getRandomElementFromArray(songList)?.imageSrc;
 
   const onClickCard = () => {
-    push(`/playlist?list=${id}`);
+    if (id) push(`/playlist?list=${id}`);
   };
 
   const onClickPlay = () => {
@@ -30,7 +30,15 @@ const PlayListCard = ({ playlist }: PlayListCardProps) => {
   return (
     <article className='h-[240px] cursor-pointer group'>
       <section onClick={onClickCard} className='relative h-[136px]'>
-        <Image src={imgSrc} fill alt='thumbnail' className='object-cover' />
+        <Image
+          src={
+            imgSrc ||
+            'https://images.unsplash.com/photo-1487956382158-bb926046304a'
+          }
+          fill
+          alt='thumbnail'
+          className='object-cover'
+        />
         <div className='hidden relative group-hover:block bg-gradient-to-b from-[rgba(0,0,0,0.7)] top-0 w-full h-[136px]'>
           <div className='absolute top-4 right-4'>
             <IconButton
