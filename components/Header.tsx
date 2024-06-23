@@ -6,33 +6,10 @@ import UserIcon from './UserIcon';
 import PagePadding from './PagePadding';
 import { FaChromecast } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import Logo from './elements/Logo';
-import Navigator from './elements/Navigator';
 import { cn } from '@/lib/utils';
 import useUIState from '@/hooks/useUIState';
-
-type HeaderDrawerProps = {
-  children: ReactNode;
-};
-
-const HeaderDrawer = ({ children }: HeaderDrawerProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <Drawer direction='left' open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger>{children}</DrawerTrigger>
-      <DrawerContent className='w-[240px] h-full'>
-        <div className='py-3'>
-          <div className='px-3'>
-            <Logo isInDrawer onClickClose={() => setIsOpen(false)} />
-          </div>
-          <Navigator />
-        </div>
-      </DrawerContent>
-    </Drawer>
-  );
-};
+import HeaderDrawer from './HeaderDrawer';
 
 type HeaderProps = {
   children: ReactNode;
